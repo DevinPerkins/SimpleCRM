@@ -3,7 +3,7 @@ using SimpleCRM.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Register MVC (controllers + views)
 builder.Services.AddControllersWithViews();
 
 // Register our DbContext with SQLite
@@ -15,7 +15,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
 
@@ -26,10 +26,12 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-// Default route: Home/Index if nothing else is specified
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+// Enable attribute-routed controllers
+app.MapControllers();
+
+// Optional: simple test endpoint to confirm app responds
+app.MapGet("/test", () => "Hello from /test");
 
 app.Run();
+
 

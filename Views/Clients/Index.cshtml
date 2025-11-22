@@ -1,0 +1,37 @@
+@model IEnumerable<SimpleCRM.Models.Client>
+
+@{
+    ViewData["Title"] = "Clients";
+}
+
+<h1>Clients</h1>
+
+<p>
+    <a asp-controller="Clients" asp-action="Create" class="btn btn-primary">Create New Client</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Date of Birth</th>
+            <th>Account Balance</th>
+            <th>Active?</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var client in Model)
+    {
+        <tr>
+            <td>@client.Name</td>
+            <td>@client.Email</td>
+            <td>@client.PhoneNumber</td>
+            <td>@client.DateOfBirth.ToShortDateString()</td>
+            <td>@client.AccountBalance</td>
+            <td>@client.IsActive</td>
+        </tr>
+    }
+    </tbody>
+</table>
